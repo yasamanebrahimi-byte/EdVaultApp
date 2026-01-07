@@ -1,0 +1,28 @@
+@startuml
+title EdVault - Repository and Database Diagram
+skinparam packageStyle rectangle
+left to right direction
+hide methods
+hide fields
+
+package "cs151.model" {
+  class StudentRepository
+  class ProgrammingLanguageRepository
+  class Student
+  class Comment
+}
+
+package "cs151.util" {
+  class Database
+}
+
+' Composition & dependencies
+Student "1" *-- "0..*" Comment
+
+StudentRepository ..> Database
+ProgrammingLanguageRepository ..> Database
+
+Database ..> Student
+Database ..> Comment
+
+@enduml

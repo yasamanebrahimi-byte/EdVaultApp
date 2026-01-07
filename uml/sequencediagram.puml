@@ -1,0 +1,76 @@
+@startuml
+title EdVault - Sequence: Create New Student Profile
+
+'--- Participants ---
+actor User
+
+boundary NewStudentProfileView
+control StudentProfileController
+control ProgrammingLanguageController
+entity StudentRepository
+entity ProgrammingLanguageRepository
+database Database
+control ValidationUtils
+
+'--- Step 1: User opens the New Student Profile screen ---
+User -> NewStudentProfileView: open()
+activate NewStudentProfileView
+
+' View needs available programming languages for dropdowns, etc.
+NewStudentProfileView -> ProgrammingLanguageController: getAllLanguages()
+activate ProgrammingLanguageController
+
+ProgrammingLanguageController -> ProgrammingLanguageRepository: getAllLanguages()
+activate ProgrammingLanguageRepository
+
+ProgrammingLanguageRepository -> Database: loadProgrammingLanguages()
+activate Database
+Database --> ProgrammingLanguageRepository: List<String>
+deactivate Database
+
+ProgrammingLanguageRepository --> ProgrammingLanguageController: List<String>
+deactivate ProgrammingLanguageRepository
+
+ProgrammingLanguageController --> NewStudentProfileView: List<String>
+deactivate ProgrammingLanguageController
+
+'--- Step 2: User fills out form and submits ---
+User -> NewStudentProfileView: submitNewStudentForm(formData)
+
+' View validates user input using ValidationUtils
+NewStudentProfileView -> ValidationUtils: validateStudentData(formData)
+activate ValidationUtils
+ValidationUtils --> NewStudentProfileView: validationResult
+deactivate ValidationUtils
+
+alt valid data
+    ' View delegates creation to controller
+    NewStudentProfileView -> StudentProfileController: addStudent(formData)
+    activate StudentProfileController
+
+    ' Controller builds Student object (simplified)
+    StudentProfileController -> StudentProfileController: create Student from formData
+
+    ' Save via repository
+    StudentProfileController -> StudentRepository: addStudent(Student)
+    activate StudentRepository
+
+    StudentRepository -> Database: addStudent(Student)
+    activate Database
+    Database --> StudentRepository: success
+    deactivate Database
+
+    StudentRepository --> StudentProfileController: success
+    deactivate StudentRepository
+
+    StudentProfileController --> NewStudentProfileView: showSuccess()
+    deactivate StudentProfileController
+
+    NewStudentProfileView --> User: displayConfirmation()
+else invalid data
+    NewStudentProfileView --> User: showValidationErrors()
+end
+
+deactivate NewStudentProfileView
+
+@enduml

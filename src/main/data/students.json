@@ -1,0 +1,98 @@
+{"students": [
+  {
+    "databases": ["MySQL"],
+    "comments": [{
+      "comment_text": "Erika showed up to my office hours, and she discussed her current research project with me. She is working on a data model that can predict with high accuracy the chances of a patient developing Alzheimer's based on their current lifestyle.",
+      "created_at_date": "2025-11-22"
+    }],
+    "job_details": "Technology desk at library",
+    "name": "Erika Mustermann",
+    "blacklist": false,
+    "whitelist": true,
+    "preferred_role": "Data",
+    "programming_languages": ["Python"],
+    "academic_status": "Freshman",
+    "employed": true
+  },
+  {
+    "databases": ["MySQL"],
+    "comments": [{
+      "comment_text": "Fru noticed a mistake on one of my lecture slides and emailed me the correction. I have taught this course for many years and no student has ever noticed this mistake. She is attentive to details.",
+      "created_at_date": "2025-11-22"
+    }],
+    "name": "Fru Danmark",
+    "blacklist": false,
+    "whitelist": true,
+    "preferred_role": "Other",
+    "programming_languages": ["C#"],
+    "academic_status": "Graduate",
+    "employed": false
+  },
+  {
+    "databases": ["Postgres"],
+    "comments": [{
+      "comment_text": "Fulan hacked into my projector and started playing a basketball game in the middle of my lecture. He was not honest and he did not admit to his \"joke\". Another student told me it was Fulan after class was over.",
+      "created_at_date": "2025-11-22"
+    }],
+    "job_details": "Research assistant",
+    "name": "Fulan Alfulani",
+    "blacklist": true,
+    "whitelist": false,
+    "preferred_role": "Front-End",
+    "programming_languages": ["Java"],
+    "academic_status": "Junior",
+    "employed": true
+  },
+  {
+    "databases": ["Postgres"],
+    "comments": [{
+      "comment_text": "Jean plugged in an electric stove to an outlet and started cooking eggs in the middle of my class! The students got hungry and no one was paying attention to the lecture anymore. This was also a huge fire hazard and I had to report this safety incident.",
+      "created_at_date": "2025-11-22"
+    }],
+    "name": "Jean Dupont",
+    "blacklist": true,
+    "whitelist": false,
+    "preferred_role": "Front-End",
+    "programming_languages": [
+      "Java",
+      "Python"
+    ],
+    "academic_status": "Junior",
+    "employed": false
+  },
+  {
+    "databases": [
+      "MySQL",
+      "MongoDB"
+    ],
+    "comments": [{
+      "comment_text": "John is the first person in his family to go to college, and he is one of the best and brightest students I have met. He always asks insightful questions during lecture and offers to help other students with assignments.",
+      "created_at_date": "2025-11-22"
+    }],
+    "job_details": "Math tutor",
+    "name": "John Doe",
+    "blacklist": false,
+    "whitelist": true,
+    "preferred_role": "Full-stack",
+    "programming_languages": ["C#"],
+    "academic_status": "Senior",
+    "employed": true
+  },
+  {
+    "databases": ["MySQL"],
+    "comments": [{
+      "comment_text": "Max consistently shows up to class late and parks his scooter by the door. He has never turned in any homework assignments, and he currently has the lowest grade in the class I have ever seen.",
+      "created_at_date": "2025-11-22"
+    }],
+    "name": "Max Mustermann",
+    "blacklist": true,
+    "whitelist": false,
+    "preferred_role": "Front-End",
+    "programming_languages": [
+      "Java",
+      "Python"
+    ],
+    "academic_status": "Graduate",
+    "employed": false
+  }
+]}

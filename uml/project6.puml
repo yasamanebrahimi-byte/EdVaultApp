@@ -1,0 +1,83 @@
+@startuml
+title EdVault - Views & Controllers
+skinparam packageStyle rectangle
+left to right direction
+hide methods
+hide fields
+
+package "cs151.application" {
+  class Main
+}
+
+package "cs151.controller" {
+  class StudentProfileController
+  class SearchController
+  class ProgrammingLanguageController
+  class CommentController
+}
+
+package "cs151.util" {
+  class UICreator
+  class AppUtils
+}
+
+package "cs151.view" {
+  class HomePageView
+  class AddProgrammingLanguageView
+  class AllAddedProgrammingLanguagesView
+  class NewStudentProfileView
+  class EditStudentProfileView
+  class OneStudentProfileView
+  class AllCommentsView
+  class AddCommentView
+  class SearchView
+  class SearchResultView
+  class ReportsView
+}
+
+Main ..> HomePageView
+
+' Views -> Controllers
+HomePageView ..> SearchController
+
+AddProgrammingLanguageView ..> ProgrammingLanguageController
+AllAddedProgrammingLanguagesView ..> ProgrammingLanguageController
+NewStudentProfileView ..> StudentProfileController
+NewStudentProfileView ..> ProgrammingLanguageController
+EditStudentProfileView ..> StudentProfileController
+EditStudentProfileView ..> ProgrammingLanguageController
+OneStudentProfileView ..> CommentController
+OneStudentProfileView ..> StudentProfileController
+AllCommentsView ..> CommentController
+AddCommentView ..> CommentController
+SearchView ..> SearchController
+SearchResultView ..> StudentProfileController
+ReportsView ..> SearchController
+
+' Views -> UI utilities
+HomePageView ..> UICreator
+
+AddProgrammingLanguageView ..> UICreator
+AddProgrammingLanguageView ..> AppUtils
+
+AllAddedProgrammingLanguagesView ..> UICreator
+
+NewStudentProfileView ..> UICreator
+NewStudentProfileView ..> AppUtils
+
+EditStudentProfileView ..> UICreator
+EditStudentProfileView ..> AppUtils
+
+OneStudentProfileView ..> UICreator
+
+AllCommentsView ..> UICreator
+AllCommentsView ..> AppUtils
+
+AddCommentView ..> UICreator
+AddCommentView ..> AppUtils
+
+SearchView ..> UICreator
+SearchResultView ..> UICreator
+ReportsView ..> UICreator
+
+@enduml

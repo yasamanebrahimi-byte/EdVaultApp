@@ -1,0 +1,87 @@
+@startuml
+title EdVault - MVC Architecture (Model / View / Controller)
+skinparam packageStyle rectangle
+left to right direction
+hide methods
+hide fields
+
+'======================
+'   MODEL LAYER
+'======================
+package "Model" {
+  class Student
+  class Comment
+  class StudentRepository
+  class ProgrammingLanguageRepository
+}
+
+' Model relationships
+Student "1" *-- "0..*" Comment
+
+'======================
+'   CONTROLLER LAYER
+'======================
+package "Controller" {
+  class StudentProfileController
+  class ProgrammingLanguageController
+  class CommentController
+  class SearchController
+}
+
+' Controller → Model dependencies
+StudentProfileController ..> Student
+StudentProfileController ..> Comment
+StudentProfileController ..> StudentRepository
+
+ProgrammingLanguageController ..> ProgrammingLanguageRepository
+
+CommentController ..> Comment
+CommentController ..> Student
+CommentController ..> StudentRepository
+
+SearchController ..> Student
+SearchController ..> StudentRepository
+
+'======================
+'   VIEW LAYER
+'======================
+package "View" {
+  class HomePageView
+  class AddProgrammingLanguageView
+  class AllAddedProgrammingLanguagesView
+  class NewStudentProfileView
+  class EditStudentProfileView
+  class OneStudentProfileView
+  class AllCommentsView
+  class AddCommentView
+  class SearchView
+  class SearchResultView
+  class ReportsView
+}
+
+' View → Controller dependencies (UI events drive logic)
+HomePageView ..> SearchController
+
+AddProgrammingLanguageView ..> ProgrammingLanguageController
+AllAddedProgrammingLanguagesView ..> ProgrammingLanguageController
+
+NewStudentProfileView ..> StudentProfileController
+NewStudentProfileView ..> ProgrammingLanguageController
+
+EditStudentProfileView ..> StudentProfileController
+EditStudentProfileView ..> ProgrammingLanguageController
+
+OneStudentProfileView ..> CommentController
+OneStudentProfileView ..> StudentProfileController
+
+AllCommentsView ..> CommentController
+
+AddCommentView ..> CommentController
+
+SearchView ..> SearchController
+
+SearchResultView ..> StudentProfileController
+
+ReportsView ..> SearchController
+
+@enduml

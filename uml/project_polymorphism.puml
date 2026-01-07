@@ -1,0 +1,32 @@
+@startuml
+title EdVault - Polymorphism: Main extends Application
+skinparam packageStyle rectangle
+
+package "javafx.application" <<external>> {
+  abstract class Application {
+    +start(Stage) : void
+    +launch() : void
+  }
+}
+
+package "cs151.application" {
+  class Main {
+    +start(Stage) : void
+  }
+}
+
+package "cs151.view" {
+  class HomePageView
+}
+
+'======================
+' Inheritance / Polymorphism
+'======================
+Main --|> Application : extends
+
+'======================
+' Main Usage
+'======================
+Main ..> HomePageView : creates and displays
+
+@enduml

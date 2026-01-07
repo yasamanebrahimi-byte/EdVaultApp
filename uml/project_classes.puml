@@ -1,0 +1,154 @@
+@startuml
+title EdVault Project - Class Relationships
+skinparam packageStyle rectangle
+
+package "cs151.application" {
+  class Main {
+  }
+}
+
+package "cs151.controller" {
+  class StudentProfileController {
+    -repo : StudentRepository
+  }
+  class SearchController {
+    -studentRepository : StudentRepository
+  }
+  class ProgrammingLanguageController {
+    -repo : ProgrammingLanguageRepository
+  }
+  class CommentController {
+    -studentRepository : StudentRepository
+  }
+}
+
+package "cs151.model" {
+  class StudentRepository {
+    -allStudents : List<Student>
+    +getAllStudents()
+    +addStudent(Student)
+    +deleteStudent(String)
+    +findByName(String)
+    +updateStudent(String, Student)
+  }
+
+  class ProgrammingLanguageRepository {
+    -programmingLanguages : List<String>
+    +getAllLanguages()
+    +addLanguage(String)
+  }
+
+  class Student {
+    -fullName : String
+    -academicStatus : String
+    -employed : boolean
+    -programmingLanguages : List<String>
+    -databasesKnown : List<String>
+    -comments : List<Comment>
+    +addComment(String)
+  }
+
+  class Comment {
+    -text : String
+    -createdAt
+    +getText()
+    +getCreatedAt()
+  }
+}
+
+package "cs151.util" {
+  class Database {
+    +loadStudents() : List<Student>
+    +addStudent(Student)
+    +updateStudents(List<Student>)
+    +loadProgrammingLanguages() : List<String>
+    +saveProgrammingLanguages(List<String>)
+  }
+
+  class UICreator {
+    +button(...)
+    +textField(...)
+    +tableView(...)
+    +createStandardScene(...)
+  }
+
+  class AppUtils
+  class ValidationUtils
+}
+
+package "cs151.view" {
+  class HomePageView
+  class AddProgrammingLanguageView
+  class AllAddedProgrammingLanguagesView
+  class NewStudentProfileView
+  class EditStudentProfileView
+  class OneStudentProfileView
+  class AllCommentsView
+  class AddCommentView
+  class SearchView
+  class SearchResultView
+  class ReportsView
+}
+
+'-- Inheritance / extension
+'-- Inheritance / extension
+Main ..> HomePageView
+
+'-- Controller -> Repository (composition / strong ownership)
+StudentProfileController *-- StudentRepository : repo
+SearchController *-- StudentRepository
+CommentController *-- StudentRepository
+ProgrammingLanguageController *-- ProgrammingLanguageRepository : repo
+
+'-- Repository -> Database (dependency)
+StudentRepository ..> Database
+ProgrammingLanguageRepository ..> Database
+
+'-- Database -> model classes (serialization)
+Database ..> Student
+Database ..> Comment
+
+'-- Model composition
+Student *-- Comment
+
+'-- Controllers use models
+StudentProfileController ..> Student
+StudentProfileController ..> Comment
+CommentController ..> Comment
+SearchController ..> Student
+ProgrammingLanguageController ..> ProgrammingLanguageRepository
+
+'-- Views use UICreator and AppUtils
+HomePageView ..> UICreator
+HomePageView ..> AppUtils
+AddProgrammingLanguageView ..> ProgrammingLanguageController
+AllAddedProgrammingLanguagesView ..> ProgrammingLanguageController
+NewStudentProfileView ..> StudentProfileController
+NewStudentProfileView ..> ProgrammingLanguageController
+EditStudentProfileView ..> StudentProfileController
+EditStudentProfileView ..> ProgrammingLanguageController
+OneStudentProfileView ..> CommentController
+OneStudentProfileView ..> StudentProfileController
+AllCommentsView ..> CommentController
+AddCommentView ..> CommentController
+SearchView ..> SearchController
+SearchResultView ..> StudentProfileController
+ReportsView ..> SearchController
+
+'-- Views navigate to other views (dependencies)
+HomePageView ..> AddProgrammingLanguageView
+HomePageView ..> NewStudentProfileView
+HomePageView ..> AllAddedProgrammingLanguagesView
+HomePageView ..> SearchView
+HomePageView ..> ReportsView
+SearchView ..> SearchResultView
+SearchResultView ..> EditStudentProfileView
+SearchResultView ..> AddCommentView
+SearchResultView ..> AllCommentsView
+SearchResultView ..> OneStudentProfileView
+
+'-- Utils used by many
+UICreator ..> ValidationUtils
+UICreator ..> AppUtils
+
+@enduml

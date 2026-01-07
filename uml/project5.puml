@@ -1,0 +1,46 @@
+@startuml
+title EdVault - Business Logic
+skinparam packageStyle rectangle
+left to right direction
+hide methods
+hide fields
+
+package "cs151.controller" {
+  class StudentProfileController
+  class SearchController
+  class ProgrammingLanguageController
+  class CommentController
+}
+
+package "cs151.model" {
+  class StudentRepository
+  class ProgrammingLanguageRepository
+  class Student
+  class Comment
+}
+
+package "cs151.util" {
+  class ValidationUtils
+}
+
+' Controller -> Repository
+StudentProfileController *-- StudentRepository
+SearchController *-- StudentRepository
+CommentController *-- StudentRepository
+ProgrammingLanguageController *-- ProgrammingLanguageRepository
+
+' Controllers use Model
+StudentProfileController ..> Student
+StudentProfileController ..> Comment
+
+CommentController ..> Student
+CommentController ..> Comment
+
+SearchController ..> Student
+
+' Controllers use ValidationUtils
+StudentProfileController ..> ValidationUtils
+CommentController ..> ValidationUtils
+ProgrammingLanguageController ..> ValidationUtils
+
+@enduml
