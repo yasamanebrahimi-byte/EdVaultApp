@@ -86,7 +86,7 @@ EdVault follows the **Model-View-Controller (MVC)** design pattern:
 1. Clone or download the project:
 
    ```bash
-   cd EdVault
+   cd EdVaultApp
    ```
 
 2. Build the project using Maven:
@@ -95,17 +95,21 @@ EdVault follows the **Model-View-Controller (MVC)** design pattern:
    mvn clean install
    ```
 
-3. Run the application:
+3. Run the application via Maven:
 
    ```bash
    mvn javafx:run
    ```
 
-   Or compile and run directly:
+   Or run directly from your IDE:
+
+   - Open `src/main/java/cs151/application/Main.java`
+   - Right-click and select "Run" or use the run button
+
+   Or run via the exec plugin:
 
    ```bash
-   mvn clean package
-   java -jar target/EdVault-1.0-SNAPSHOT.jar
+   mvn exec:java
    ```
 
 ## Usage
